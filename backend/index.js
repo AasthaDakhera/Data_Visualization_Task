@@ -1,0 +1,12 @@
+const express=require('express')
+const app=express()
+app.use(express.json())
+const cors=require('cors')
+app.use(cors())
+const dotenv=require(('dotenv'))
+dotenv.config({path:"./config.env"})
+const db=require("./database")
+// const {port}=require("./config.env");
+const userRoute=require('./routes/user_route')
+app.use('/api/v1/users',userRoute)
+app.listen(process.env.PORT,()=>console.log("service started on port:",process.env.PORT))
