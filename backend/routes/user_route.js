@@ -2,6 +2,8 @@ const express=require('express')
 const usercontroller=require("../controller/usercontroller")
 const router=express.Router()
 const multer=require('multer')
+
+//storing the file after renaming using multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './uploads')
@@ -12,6 +14,8 @@ const storage = multer.diskStorage({
     }
   })
 const upload = multer({ storage: storage })
+
+//routes
 router.post('/signup',usercontroller.signUp);
 router.post('/login',usercontroller.login);
 router.post('/upload',upload.single('file'),usercontroller.upload);
