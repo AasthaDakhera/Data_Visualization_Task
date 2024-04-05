@@ -93,12 +93,13 @@ exports.generateChart = async (req, res, next) => {
     const data = labelIndices.map(index => result.map(row => row[index]));
 
     console.log(data);
-    // Replace null values with median of the column
-    // for (let i = 0; i < data.length; i++) {
-    //     const column = data[i];
-    //     const median = calculateMedian(column.filter(value => value !== null && value !== '' && !isNaN(value)));
-    //     data[i] = column.map(value => (value === null || value === '' || isNaN(value)) ? median : value);
-    // }
+    //Replace null values with median of the column
+    for (let i = 0; i < data.length; i++) {
+        const column = data[i];
+        const cleanedColumn = column.filter(value => value !== null && value !== '' && !isNaN(value));
+        const median = calculateMedian(cleanedColumn);
+        data[i] = column.map(value => (value === null || value === '' || isNaN(value)) ? median : value);
+    }
     console.log(data);
     const labels = data[0];
     const values = data[1];
